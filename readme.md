@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Laravel Liferaft provides a simple, painless way to submit bug reports to the Laravel framework. Liferaft automates to creation of Laravel forks and pull requests, allowing you to quickly submit a sample application that recreates a bug in the framework. Feel like contributing to Laravel? Liferaft can even grab a fresh bug report for you to hack on!
+Laravel Liferaft provides a simple, painless way to submit bug reports to the Laravel framework. Liferaft automates the creation of Laravel forks and pull requests, allowing you to quickly submit a sample application that recreates a bug in the framework. Feel like contributing to Laravel? Liferaft can even grab a fresh bug report for you to hack on!
 
 ## Official Documentation
 
