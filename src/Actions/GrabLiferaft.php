@@ -1,9 +1,9 @@
 <?php namespace Laravel\Liferaft\Actions;
 
 use Laravel\Liferaft\Git;
+use Illuminate\Events\Dispatcher;
 use Laravel\Liferaft\Contracts\Action;
 use Laravel\Liferaft\Contracts\Github;
-use Illuminate\Contracts\Events\Dispatcher;
 
 class GrabLiferaft implements Action {
 

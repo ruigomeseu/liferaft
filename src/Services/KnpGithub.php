@@ -1,8 +1,8 @@
 <?php namespace Laravel\Liferaft\Services;
 
+use Illuminate\Events\Dispatcher;
 use Github\Client as GithubClient;
 use Illuminate\Support\Collection;
-use Illuminate\Contracts\Events\Dispatcher;
 use Laravel\Liferaft\Contracts\Github as GithubContract;
 
 class KnpGithub implements GithubContract {

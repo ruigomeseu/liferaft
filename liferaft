@@ -45,7 +45,7 @@ $container->bindShared('output', function()
 /**
  * Configure The Logger Implementation...
  */
-$container->bindShared('Illuminate\Contracts\Events\Dispatcher', function($container)
+$container->bindShared('Illuminate\Events\Dispatcher', function($container)
 {
 	$dispatcher = new Dispatcher($container);
 
@@ -79,7 +79,7 @@ $container->bindShared('Github\Client', function() use ($token)
  */
 $container->bindShared('Laravel\Liferaft\Contracts\Github', function($container)
 {
-	return new Laravel\Liferaft\Services\KnpGithub($container['Github\Client'], $container['Illuminate\Contracts\Events\Dispatcher']);
+	return new Laravel\Liferaft\Services\KnpGithub($container['Github\Client'], $container['Illuminate\Events\Dispatcher']);
 });
 
 /**

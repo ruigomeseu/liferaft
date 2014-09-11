@@ -1,4 +1,14 @@
 {
+    "name": "laravel/liferaft",
+    "description": "Send issue reports to the Laravel framework.",
+    "keywords": ["laravel"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Taylor Otwell",
+            "email": "taylorotwell@gmail.com"
+        }
+    ],
 	"autoload": {
 		"psr-4": {
 			"Laravel\\Liferaft\\": "src/"
@@ -13,5 +23,8 @@
 		"symfony/console": "~2.0",
 		"symfony/process": "~2.0"
 	},
-	"minimum-stability": "dev"
+	"bin": [
+		"liferaft"
+	],
+	"minimum-stability": "stable"
 }

@@ -1,10 +1,10 @@
 <?php namespace Laravel\Liferaft\Actions;
 
 use Laravel\Liferaft\Git;
+use Illuminate\Events\Dispatcher;
 use Laravel\Liferaft\Contracts\Action;
 use Laravel\Liferaft\Contracts\Github;
 use Symfony\Component\Process\Process;
-use Illuminate\Contracts\Events\Dispatcher;
 
 class ThrowLiferaft implements Action {
 

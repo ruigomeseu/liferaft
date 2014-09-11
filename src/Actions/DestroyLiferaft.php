@@ -1,8 +1,8 @@
 <?php namespace Laravel\Liferaft\Actions;
 
+use Illuminate\Events\Dispatcher;
 use Laravel\Liferaft\Contracts\Action;
 use Laravel\Liferaft\Contracts\Github;
-use Illuminate\Contracts\Events\Dispatcher;
 
 class DestroyLiferaft implements Action {
 
