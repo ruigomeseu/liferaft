@@ -1,14 +1,14 @@
 {
-    "name": "laravel/liferaft",
-    "description": "Send bug reports to the Laravel framework.",
-    "keywords": ["laravel"],
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Taylor Otwell",
-            "email": "taylorotwell@gmail.com"
-        }
-    ],
+	"name": "laravel/liferaft",
+	"description": "Send bug reports to the Laravel framework.",
+	"keywords": ["laravel"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Taylor Otwell",
+			"email": "taylorotwell@gmail.com"
+		}
+	],
 	"autoload": {
 		"psr-4": {
 			"Laravel\\Liferaft\\": "src/"
@@ -26,10 +26,9 @@
 	"bin": [
 		"liferaft"
 	],
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.0-dev"
-        }
-    },
-	"minimum-stability": "stable"
+	"extra": {
+		"branch-alias": {
+			"dev-master": "1.0-dev"
+		}
+	}
 }
