@@ -1,6 +1,6 @@
 {
     "name": "laravel/liferaft",
-    "description": "Send issue reports to the Laravel framework.",
+    "description": "Send bug reports to the Laravel framework.",
     "keywords": ["laravel"],
     "license": "MIT",
     "authors": [
