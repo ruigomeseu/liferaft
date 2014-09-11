@@ -1,0 +1,96 @@
+#!/usr/bin/env php
+<?php
+
+if (file_exists(__DIR__.'/vendor/autoload.php'))
+{
+	require __DIR__.'/vendor/autoload.php';
+}
+else
+{
+	require __DIR__.'/../../autoload.php';
+}
+
+/**
+ * Get The Github Token...
+ */
+$token = null;
+
+if (file_exists($config = __DIR__.'/liferaft.json'))
+{
+	$token = json_decode(file_get_contents($config), true)['token'];
+}
+
+/**
+ * Create A Container Instance...
+ */
+$container = new Illuminate\Container\Container;
+
+/**
+ * Imports...
+ */
+use Psr\Log\LogLevel;
+use Illuminate\Events\Dispatcher;
+use Symfony\Component\Console\Logger\ConsoleLogger;
+use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\Console\Output\OutputInterface;
+
+/**
+ * Configure The Console Output...
+ */
+$container->bindShared('output', function()
+{
+	return new ConsoleOutput;
+});
+
+/**
+ * Configure The Logger Implementation...
+ */
+$container->bindShared('Illuminate\Contracts\Events\Dispatcher', function($container)
+{
+	$dispatcher = new Dispatcher($container);
+
+	$dispatcher->listen('write', function($message) use ($container)
+	{
+		$container['output']->write($message);
+	});
+
+	$dispatcher->listen('line', function($message) use ($container)
+	{
+		$container['output']->writeln($message);
+	});
+
+	return $dispatcher;
+});
+
+/**
+ * Configure The Github Client...
+ */
+$container->bindShared('Github\Client', function() use ($token)
+{
+	$client = new Github\Client;
+
+	$client->authenticate($token, null, Github\Client::AUTH_HTTP_TOKEN);
+
+	return $client;
+});
+
+/**
+ * Configure The Github Contract
+ */
+$container->bindShared('Laravel\Liferaft\Contracts\Github', function($container)
+{
+	return new Laravel\Liferaft\Services\KnpGithub($container['Github\Client'], $container['Illuminate\Contracts\Events\Dispatcher']);
+});
+
+/**
+ * Bootstrap The Console Application
+ */
+$app = new Symfony\Component\Console\Application('Laravel Liferaft', '1.0.0');
+
+$app->add($container->make('Laravel\Liferaft\NewCommand'));
+$app->add($container->make('Laravel\Liferaft\ThrowCommand'));
+$app->add($container->make('Laravel\Liferaft\DestroyCommand'));
+$app->add($container->make('Laravel\Liferaft\GrabCommand'));
+$app->add($container->make('Laravel\Liferaft\AuthCommand'));
+
+$app->run();
