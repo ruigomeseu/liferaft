@@ -13,7 +13,7 @@ trait ActionTrait {
 	protected $event;
 
 	/**
-	 * Execute a task with a stauts update.
+	 * Execute a task with a status update.
 	 *
 	 * @param  string  $message
 	 * @param  \Closure  $callback
