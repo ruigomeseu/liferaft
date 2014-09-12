@@ -1,11 +1,9 @@
 <?php namespace Laravel\Liferaft;
 
+use Laravel\Liferaft\Contracts\Action;
 use Laravel\Liferaft\Actions\ThrowLiferaft;
-use Laravel\Liferaft\Actions\ActionInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Logger\ConsoleLogger;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Command\Command as BaseCommand;
 
@@ -14,7 +12,7 @@ class ThrowCommand extends BaseCommand {
 	/**
 	 * The action instance.
 	 *
-	 * @var ActionInterface
+	 * @var Action
 	 */
 	protected $action;
 
