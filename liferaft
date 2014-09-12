@@ -11,6 +11,12 @@ else
 }
 
 /**
+ * Define A Few Constants
+ */
+define('TARGET_OWNER', 'laravel');
+define('TARGET_REPOSITORY', 'laravel');
+
+/**
  * Get The Github Token...
  */
 $token = null;
@@ -68,9 +74,7 @@ $container->bindShared('Illuminate\Events\Dispatcher', function($container)
 $container->bindShared('Github\Client', function() use ($token)
 {
 	$client = new Github\Client;
-
 	$client->authenticate($token, null, Github\Client::AUTH_HTTP_TOKEN);
-
 	return $client;
 });
 

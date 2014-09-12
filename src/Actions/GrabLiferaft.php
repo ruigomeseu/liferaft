@@ -4,6 +4,7 @@ use Laravel\Liferaft\Git;
 use Illuminate\Events\Dispatcher;
 use Laravel\Liferaft\Contracts\Action;
 use Laravel\Liferaft\Contracts\Github;
+use Symfony\Component\Process\Process;
 
 class GrabLiferaft implements Action {
 
@@ -33,6 +34,7 @@ class GrabLiferaft implements Action {
 		'checkoutProperBranch',
 		'createLiferaftBrach',
 		'pullLiferaftApplication',
+		'installComposerDependencies',
 		'reportPullInformation',
 	];
 
@@ -123,6 +125,19 @@ class GrabLiferaft implements Action {
 		$this->task('Pulling Liferaft Application...', function() use ($pull)
 		{
 			$this->git->pull($pull['user'], 'liferaft', $pull['from_branch']);
+		});
+	}
+
+	/**
+	 * Install the cloned repository's dependencies.
+	 *
+	 * @return void
+	 */
+	protected function installComposerDependencies()
+	{
+		$this->task('Installing Composer Dependencies...', function()
+		{
+			$this->runProcess(new Process('composer update --no-scripts', getcwd()));
 		});
 	}
 

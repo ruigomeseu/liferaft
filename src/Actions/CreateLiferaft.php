@@ -27,6 +27,7 @@ class CreateLiferaft implements Action {
 		'cloneLiferaftApplication',
 		'installComposerDependencies',
 		'writeStubLiferaftFile',
+		'addLiferaftFileToGit',
 	];
 
 	/**
@@ -47,9 +48,10 @@ class CreateLiferaft implements Action {
 	 *
 	 * @param  string  $name
 	 * @param  string  $branch
+	 * @param  string  $title
 	 * @return void
 	 */
-	public function execute($name, $branch)
+	public function execute($name, $branch, $title)
 	{
 		if (is_dir(getcwd().'/'.$name))
 		{
@@ -60,7 +62,7 @@ class CreateLiferaft implements Action {
 
 		foreach ($this->tasks as $task)
 		{
-			$this->{$task}($username, $name, $branch);
+			$this->{$task}($username, $name, $branch, $title);
 		}
 
 		$this->info('Done! Thank you for your contributions!');
@@ -75,7 +77,7 @@ class CreateLiferaft implements Action {
 	{
 		$this->task('Forking Laravel...', function()
 		{
-			$this->github->fork('laravel', 'laravel');
+			$this->github->fork(TARGET_OWNER, TARGET_REPOSITORY);
 		});
 	}
 
@@ -89,7 +91,7 @@ class CreateLiferaft implements Action {
 	{
 		$this->task('Renaming Repository...', function() use ($username)
 		{
-			$this->renameRepository($username, 'laravel', 'liferaft');
+			$this->renameRepository($username, TARGET_REPOSITORY, 'liferaft');
 		});
 	}
 
@@ -131,11 +133,11 @@ class CreateLiferaft implements Action {
 	 * @param  string  $name
 	 * @return void
 	 */
-	protected function writeStubLiferaftFile($username, $name)
+	protected function writeStubLiferaftFile($username, $name, $branch, $title)
 	{
-		$this->task('Writing Stub Liferaft File...', function() use ($name)
+		$this->task('Writing Stub Liferaft File...', function() use ($name, $title)
 		{
-			$this->createLiferaftFile($name);
+			$this->createLiferaftFile($name, $title);
 		});
 	}
 
@@ -157,7 +159,7 @@ class CreateLiferaft implements Action {
 		{
 			sleep(3);
 
-			$this->renameRepository($uesrname, $repository, $name);
+			$this->renameRepository($username, $repository, $name);
 		}
 	}
 
@@ -203,11 +205,27 @@ class CreateLiferaft implements Action {
 	 * Create a stub Liferaft file in the cloned repository.
 	 *
 	 * @param  string  $name
+	 * @param  string  $title
 	 * @return void
 	 */
-	protected function createLiferaftFile($name)
+	protected function createLiferaftFile($name, $title)
 	{
-		copy(__DIR__.'/stubs/liferaft.md', getcwd().'/'.$name.'/liferaft.md');
+		$contents = file_get_contents(__DIR__.'/stubs/liferaft.md');
+
+		$contents = str_replace('{{title}}', $title, $contents);
+
+		file_put_contents(getcwd().'/'.$name.'/liferaft.md', $contents);
+	}
+
+	/**
+	 * Add the Liferaft file to Git version control.
+	 *
+	 * @param  string  $name
+	 * @return void
+	 */
+	protected function addLiferaftFileToGit($username, $name)
+	{
+		$this->runProcess((new Process('git add liferaft.md', getcwd().'/'.$name)));
 	}
 
 }

@@ -62,7 +62,7 @@ class KnpGithub implements GithubContract {
 	 */
 	public function sendPullRequest($owner, $branch, $toBranch, $liferaftFile)
 	{
-		$response = $this->client->api('pull_request')->create('laravel', 'laravel', [
+		$response = $this->client->api('pull_request')->create(TARGET_OWNER, TARGET_REPOSITORY, [
 			'base' => $toBranch,
 			'head' => $owner.':'.$branch,
 			'title' => '[Liferaft] '.$this->getPullRequestTitle($liferaftFile),
@@ -107,7 +107,7 @@ class KnpGithub implements GithubContract {
 	 */
 	public function getRandomPullRequestId()
 	{
-		$open = $this->client->api('pull_request')->all('laravel', 'laravel', ['state' => 'open']);
+		$open = $this->client->api('pull_request')->all(TARGET_OWNER, TARGET_REPOSITORY, ['state' => 'open']);
 
 		$found = Collection::make($open)->shuffle()->first(function($key, $pull)
 		{
@@ -130,7 +130,7 @@ class KnpGithub implements GithubContract {
 			throw new \InvalidArgumentException('Invalid ID.');
 		}
 
-		$pull = $this->client->api('pull_request')->show('laravel', 'laravel', (int) $id);
+		$pull = $this->client->api('pull_request')->show(TARGET_OWNER, TARGET_REPOSITORY, (int) $id);
 
 		if ($pull)
 		{

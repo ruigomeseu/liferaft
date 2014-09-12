@@ -3,6 +3,7 @@
 use Laravel\Liferaft\Actions\CreateLiferaft;
 use Laravel\Liferaft\Actions\ActionInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Question\Question;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Logger\ConsoleLogger;
@@ -53,9 +54,13 @@ class NewCommand extends BaseCommand {
 	 */
 	public function execute(InputInterface $input, OutputInterface $output)
 	{
+		$question = new Question("<fg=cyan>What title should be assigned to your bug report?</fg=cyan> ");
+
+		$title = $this->getHelper('question')->ask($input, $output, $question);
+
 		$branch = $input->getOption('dev') ? 'develop' : 'master';
 
-		$this->action->execute($input->getArgument('name'), $branch);
+		$this->action->execute($input->getArgument('name'), $branch, $title);
 	}
 
 }
