@@ -50,11 +50,11 @@ class Git {
 	}
 
 	/**
-	 * Determine if Git has uncommited changes.
+	 * Determine if Git has uncommitted changes.
 	 *
 	 * @return bool
 	 */
-	public function hasUncommitedChanges()
+	public function hasUncommittedChanges()
 	{
 		with($process = new Process('git status -s', getcwd()))->run();
 
