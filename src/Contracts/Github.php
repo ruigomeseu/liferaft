@@ -3,7 +3,7 @@
 interface Github {
 
 	/**
-	 * Get the authenticated user's usernmae.
+	 * Get the authenticated user's username.
 	 *
 	 * @return string
 	 */
